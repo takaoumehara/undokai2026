@@ -1,0 +1,11 @@
+# Ignore heavy media assets
+*.png
+*.pdf
+.DS_Store
+
+# Ignore directories containing images/PDF orders
+HomeDepot/
+For_Print_Aliexpress/
+1x/
+300ppi/
+tempmediaStorage/

@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>運動会得点板 DIY設計・カットガイド | Portable Undokai Scoreboard</title>
+  
+  <!-- Google Fonts: Outfit & Inter for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ── DESIGN SYSTEM TOKENS ─────────────────────────────────────────── */
+    :root {
+      /* Colors - Harmonies curated for Sports/DIY theme */
+      --color-bg-base: #fafaff;
+      --color-surface: #ffffff;
+      --color-surface-dim: #f3f4fa;
+      --color-border: #e2e5f0;
+      
+      --color-text-primary: #151a30;
+      --color-text-secondary: #4b526d;
+      --color-text-muted: #8e95b2;
+      
+      /* Accent Colors mapped to PVC pipeline & sports day teams */
+      --color-team-red: #ff3b30;
+      --color-team-white: #000000;
+      --color-team-white-bg: #ffffff;
+      --color-pvc-orange: #ff9500;
+      --color-pvc-blue: #007aff;
+      --color-pvc-purple: #af52de;
+      --color-pvc-pink: #ff2d55;
+      --color-pvc-green: #34c759;
+      --color-pvc-olive: #5856d6;
+      --color-pvc-yellow: #ffcc00;
+      
+      /* Shadows & Radius */
+      --shadow-sm: 0 2px 8px rgba(21, 26, 48, 0.04);
+      --shadow-md: 0 8px 24px rgba(21, 26, 48, 0.08);
+      --shadow-lg: 0 16px 48px rgba(21, 26, 48, 0.12);
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── BASE STYLES ──────────────────────────────────────────────────── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background-color: var(--color-bg-base);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, .font-outfit {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    /* ── PREMIUM LAYOUT CONTAINER ─────────────────────────────────────── */
+    .app-container {
+      max-width: 640px; /* Locked to perfect mobile reading width */
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* ── HEADER ───────────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #111528 0%, #1c223f 100%);
+      color: white;
+      padding: 24px 20px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 45, 85, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .flag-red {
+      width: 14px;
+      height: 24px;
+      background-color: var(--color-team-red);
+      border-radius: 2px;
+      transform: skewX(-10deg);
+    }
+
+    .flag-white {
+      width: 14px;
+      height: 24px;
+      background-color: white;
+      border-radius: 2px;
+      border: 1px solid #ffffff33;
+      transform: skewX(-10deg);
+    }
+
+    .header-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-pvc-yellow);
+      font-weight: 700;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      background: linear-gradient(to right, #ffffff 60%, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    /* ── TABS ─────────────────────────────────────────────────────────── */
+    .tabs-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background-color: var(--color-surface-dim);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      border: 1px solid var(--color-border);
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 12px 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      border-radius: calc(var(--radius-md) - 4px);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition-fast);
+    }
+
+    .tab-btn span.icon {
+      font-size: 1.2rem;
+    }
+
+    .tab-btn.active {
+      background-color: var(--color-surface);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── CONTENT WRAPPER ──────────────────────────────────────────────── */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── CARDS & SECTIONS ─────────────────────────────────────────────── */
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── PARTS LIST ───────────────────────────────────────────────────── */
+    .parts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .part-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background-color: var(--color-surface-dim);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    .part-visual {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      margin-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .part-visual.orange { background-color: rgba(255, 149, 0, 0.15); border: 2px solid var(--color-pvc-orange); }
+    .part-visual.blue { background-color: rgba(0, 122, 255, 0.15); border: 2px solid var(--color-pvc-blue); }
+    .part-visual.red { background-color: rgba(255, 45, 85, 0.15); border: 2px solid var(--color-pvc-pink); }
+    .part-visual.yellow { background-color: rgba(255, 204, 0, 0.15); border: 2px solid var(--color-pvc-yellow); }
+
+    .part-visual::after {
+      content: '';
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 60%);
+    }
+
+    .part-visual.fitting {
+      background-color: #e2e8f0;
+      border: 2px solid #94a3b8;
+    }
+
+    .part-info {
+      flex-grow: 1;
+    }
+
+    .part-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .part-spec {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+    }
+
+    .part-badge {
+      font-size: 0.9rem;
+      font-weight: 700;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── INTERACTIVE CUT SHEET ────────────────────────────────────────── */
+    .pipe-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .pipe-selector::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pipe-tab {
+      background-color: var(--color-surface-dim);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-fast);
+    }
+
+    .pipe-tab.active {
+      background-color: var(--color-text-primary);
+      color: white;
+      border-color: var(--color-text-primary);
+    }
+
+    .interactive-pipe-container {
+      margin-bottom: 24px;
+    }
+
+    /* PVC visual bar */
+    .pvc-visual-bar {
+      height: 36px;
+      background-color: #e2e5f0;
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+      border: 2px solid #b2b8d0;
+    }
+
+    .pvc-segment {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.2), inset 0 2px 3px rgba(255,255,255,0.3);
+    }
+
+    .pvc-segment::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, transparent 100%);
+    }
+
+    .pvc-segment.orange { background-color: var(--color-pvc-orange); }
+    .pvc-segment.blue { background-color: var(--color-pvc-blue); }
+    .pvc-segment.red { background-color: var(--color-pvc-pink); }
+    .pvc-segment.yellow { background-color: var(--color-pvc-yellow); color: #4a3e00; }
+    .pvc-segment.scrap { background-color: #cbd5e1; color: var(--color-text-secondary); font-weight: 500; }
+
+    .pvc-segment.checked {
+      background-color: #10b981 !important;
+      color: white !important;
+    }
+
+    .pvc-segment.checked::after {
+      content: '✓';
+      position: absolute;
+      font-size: 0.85rem;
+    }
+
+    /* Cut Instructions Panel */
+    .cut-instructions-panel {
+      background-color: var(--color-surface-dim);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .cut-instruction-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+      cursor: pointer;
+    }
+
+    .cut-instruction-item:last-child {
+      border-bottom: none;
+    }
+
+    .checkbox-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: var(--transition-fast);
+      background-color: white;
+    }
+
+    .checkbox-circle::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #10b981;
+      transform: scale(0);
+      transition: var(--transition-fast);
+    }
+
+    .cut-instruction-item.checked .checkbox-circle {
+      border-color: #10b981;
+      background-color: rgba(16, 185, 129, 0.08);
+    }
+
+    .cut-instruction-item.checked .checkbox-circle::after {
+      transform: scale(1);
+    }
+
+    .cut-instruction-item.checked .cut-desc {
+      text-decoration: line-through;
+      color: var(--color-text-muted);
+    }
+
+    .cut-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .cut-label.orange { background-color: var(--color-pvc-orange); }
+    .cut-label.blue { background-color: var(--color-pvc-blue); }
+    .cut-label.red { background-color: var(--color-pvc-pink); }
+    .cut-label.yellow { background-color: var(--color-pvc-yellow); color: #4a3e00; }
+    .cut-label.scrap { background-color: #94a3b8; }
+
+    .cut-desc {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      transition: var(--transition-fast);
+    }
+
+    /* ── STEP-BY-STEP ASSEMBLY ────────────────────────────────────────── */
+    .steps-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .steps-timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background-color: var(--color-border);
+    }
+
+    .step-node {
+      position: relative;
+    }
+
+    .step-badge {
+      position: absolute;
+      left: -20px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--color-bg-base);
+      border: 3px solid var(--color-text-muted);
+      transition: var(--transition-fast);
+    }
+
+    .step-node.active .step-badge {
+      border-color: var(--color-pvc-blue);
+      background-color: var(--color-pvc-blue);
+    }
+
+    .step-content {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      margin-left: 12px;
+      cursor: pointer;
+      transition: var(--transition-normal);
+    }
+
+    .step-content:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-node.active .step-content {
+      border-color: var(--color-pvc-blue);
+      background-color: rgba(0, 122, 255, 0.02);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .step-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--color-pvc-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .step-text {
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ── CARD FLIP SIMULATOR ─────────────────────────────────────────── */
+    .flip-sim-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+      background-color: var(--color-surface-dim);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+
+    /* PVC pipe mockup for simulator */
+    .pvc-mock-pipe {
+      width: 80%;
+      height: 28px;
+      background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      position: relative;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Ring element looping over pipe */
+    .ring-mock {
+      position: absolute;
+      top: -12px;
+      width: 48px;
+      height: 72px;
+      border-radius: 24px;
+      border: 4px solid #8e95b2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Laminated Card with 3D perspective transition */
+    .card-scene {
+      width: 110px;
+      height: 170px;
+      perspective: 600px;
+      cursor: pointer;
+    }
+
+    .card-3d {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card-scene:active .card-3d {
+      transform: scale(0.95);
+    }
+
+    .card-3d.is-flipped {
+      transform: rotateX(-180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      border: 4px solid #e2e8f0;
+    }
+
+    .card-face::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--color-bg-base);
+      border: 1px solid #cbd5e1;
+    }
+
+    .card-front-face {
+      background-color: var(--color-team-red);
+      color: white;
+    }
+
+    .card-back-face {
+      background-color: white;
+      color: var(--color-text-primary);
+      transform: rotateX(180deg);
+      border-color: #ff3b30;
+    }
+
+    .card-score {
+      font-family: 'Outfit', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .flip-hint {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    /* ── STABILITY SLIDER ─────────────────────────────────────────────── */
+    .slider-container {
+      background-color: var(--color-surface-dim);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .custom-range {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--color-border);
+      outline: none;
+      margin: 16px 0;
+    }
+
+    .custom-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-pvc-blue);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      border: 2px solid white;
+      transition: transform 0.1s;
+    }
+
+    .custom-range::-webkit-slider-thumb:active {
+      transform: scale(1.2);
+    }
+
+    .stability-rating {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .rating-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    .rating-value {
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 12px;
+      color: white;
+    }
+
+    .rating-value.perfect { background-color: var(--color-pvc-green); }
+    .rating-value.good { background-color: var(--color-pvc-blue); }
+    .rating-value.warning { background-color: var(--color-pvc-yellow); color: #4a3e00; }
+    .rating-value.danger { background-color: var(--color-team-red); }
+
+    /* ── FOOTER LOGO ─────────────────────────────────────────────────── */
+    .footer-logo {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--color-text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-logo span {
+      color: var(--color-pvc-pink);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header id="main-header">
+      <div class="header-logo-container">
+        <div class="flag-red" aria-hidden="true"></div>
+        <div class="flag-white" aria-hidden="true"></div>
+        <span class="header-tag">DIY PIPELINE</span>
+      </div>
+      <h1 id="header-title">運動会得点板 設計ツール</h1>
+      <p id="header-subtitle">パイプをカットして、頑丈な得点板を作ろう！</p>
+    </header>
+
+    <!-- TABS NAVIGATION -->
+    <nav class="tabs-nav" aria-label="メインメニュー">
+      <button class="tab-btn active" onclick="switchTab(event, 'cut-sheet')" id="tab-btn-cut">
+        <span class="icon">🪚</span>
+        カット設計
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'assembly')" id="tab-btn-assembly">
+        <span class="icon">🏗️</span>
+        組み立て
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'simulator')" id="tab-btn-simulator">
+        <span class="icon">💡</span>
+        シミュレータ
+      </button>
+    </nav>
+
+    <!-- TAB 1: INTERACTIVE CUT SHEET -->
+    <div id="cut-sheet" class="tab-content active">
+      
+      <!-- General Summary Card -->
+      <div class="card" id="card-cut-summary">
+        <h2 class="card-title"><span aria-hidden="true">📊</span> 必要パーツ合計（1.5" PVCパイプ）</h2>
+        <div class="parts-grid">
+          <div class="part-item">
+            <div class="part-visual orange"></div>
+            <div class="part-info">
+              <div class="part-name">水平フレームバー (🟠)</div>
+              <div class="part-spec">長さ 36インチ (約91.4cm)</div>
+            </div>
+            <span class="part-badge">6本</span>
+          </div>
+          <div class="part-item">
+            <div class="part-visual blue"></div>
+            <div class="part-info">
+              <div class="part-name">下部垂直支柱 (🔵)</div>
+              <div class="part-spec">長さ 36インチ (約91.4cm)</div>
+            </div>
+            <span class="part-badge">3本</span>
+          </div>
+          <div class="part-item">
+            <div class="part-visual red"></div>
+            <div class="part-info">
+              <div class="part-name">上部垂直支柱 (🔴)</div>
+              <div class="part-spec">長さ 24インチ (約61.0cm)</div>
+            </div>
+            <span class="part-badge">2本</span>
+          </div>
+          <div class="part-item">
+            <div class="part-visual yellow"></div>
+            <div class="part-info">
+              <div class="part-name">土台の足 (🟡)</div>
+              <div class="part-spec">長さ 18インチ (約45.7cm)</div>
+            </div>
+            <span class="part-badge">4本</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Cut Board -->
+      <div class="card" id="card-pipe-cutting">
+        <h2 class="card-title"><span aria-hidden="true">✂️</span> パイプ別 カットプラン (10ft × 4)</h2>
+        <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-bottom: 12px;">
+          タブをタップして、各パイプの切り出しパターンを確認できます。パーツをタップすると「カット完了」としてチェックできます！
+        </p>
+
+        <!-- Pipe Selector Tabs -->
+        <div class="pipe-selector" role="tablist">
+          <button class="pipe-tab active" onclick="selectPipe('pipe1')" role="tab" aria-selected="true" id="btn-pipe1">1本目のパイプ</button>
+          <button class="pipe-tab" onclick="selectPipe('pipe2')" role="tab" aria-selected="false" id="btn-pipe2">2本目のパイプ</button>
+          <button class="pipe-tab" onclick="selectPipe('pipe3')" role="tab" aria-selected="false" id="btn-pipe3">3本目のパイプ</button>
+          <button class="pipe-tab" onclick="selectPipe('pipe4')" role="tab" aria-selected="false" id="btn-pipe4">4本目のパイプ</button>
+        </div>
+
+        <!-- Interactive Pipe Visualization -->
+        <div class="interactive-pipe-container">
+          <div class="pvc-visual-bar" id="pipe-visual-bar-display">
+            <!-- Segments populated dynamically by Javascript -->
+          </div>
+        </div>
+
+        <!-- Dynamic Instructions Panel -->
+        <div class="cut-instructions-panel" id="cut-instructions-display">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: STEP-BY-STEP ASSEMBLY -->
+    <div id="assembly" class="tab-content">
+      <div class="card" id="card-assembly-guide">
+        <h2 class="card-title"><span aria-hidden="true">🏗️</span> 組み立て順序 (Step-by-Step)</h2>
+        <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-bottom: 16px;">
+          パイプは接着剤を使用せず、継手に奥まで押し込むだけでガッチリと結合します（Friction Fit）。これによりイベント後の分解・運搬が容易になります。
+        </p>
+        
+        <div class="steps-timeline">
+          
+          <div class="step-node active" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 1</span>
+                <span class="cut-label yellow">18"</span>
+              </div>
+              <div class="step-title">土台（一番下）の組み立て</div>
+              <p class="step-text">左右の4方向継手（Olive）の前後に黄色い足（18"）を合計4本差し込みます。その間をオレンジ（36"）2本と中央のTee（Purple）で繋ぎます。</p>
+            </div>
+          </div>
+
+          <div class="step-node" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 2</span>
+                <span class="cut-label blue">36"</span>
+              </div>
+              <div class="step-title">下部垂直支柱を立てる</div>
+              <p class="step-text">左右の4方向継手、および中央のTeeの真上の差込口に、ライトブルーの支柱（36"）を合計3本垂直に立てます。</p>
+            </div>
+          </div>
+
+          <div class="step-node" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 3</span>
+                <span class="cut-label orange">36"</span>
+              </div>
+              <div class="step-title">中段フレームの設置</div>
+              <p class="step-text">左右と中央にTee（Purple）を繋いだオレンジ（36"）2本の水平バーを作成し、先ほど立てた垂直支柱の上にグッと差し込み合体させます。</p>
+            </div>
+          </div>
+
+          <div class="step-node" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 4</span>
+                <span class="cut-label red">24"</span>
+              </div>
+              <div class="step-title">上部垂直支柱を立てる</div>
+              <p class="step-text">中段の左右のTeeに、ダークレッドの支柱（24"）を2本垂直に差し込みます。（中央は支柱不要です）</p>
+            </div>
+          </div>
+
+          <div class="step-node" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 5</span>
+                <span class="cut-label orange">36"</span>
+              </div>
+              <div class="step-title">上段バーの合体でフレーム完成</div>
+              <p class="step-text">2本のオレンジ（36"）を緑の Coupling で繋ぎ、両端に Pink 90°エルボを取り付けたバーを、ダークレッドの支柱の上に差し込んで枠を完成させます。</p>
+            </div>
+          </div>
+
+          <div class="step-node" onclick="activateStep(this)">
+            <div class="step-badge" aria-hidden="true"></div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-num">Step 6</span>
+                <span class="cut-label scrap">重り</span>
+              </div>
+              <div class="step-title">重り（バケツ）と数字カードの設置</div>
+              <p class="step-text">左右の支柱をバケツのフタの穴に通し、土台にバケツ（水・石・砂入り）を置いてバンジーコードで固定します。最後に、特大リングを使って数字カードをぶら下げます。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: SMART SIMULATOR -->
+    <div id="simulator" class="tab-content">
+      
+      <!-- Card Flip Sim -->
+      <div class="card" id="card-flip-simulator">
+        <h2 class="card-title"><span aria-hidden="true">🎴</span> 得点めくりシミュレーター</h2>
+        <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-bottom: 16px;">
+          S字フックを使わずに特大バインダーリングをパイプに直接通すことで、滑らかなPVCの上をすべるようにスムーズにフリップさせることができます。
+        </p>
+
+        <div class="flip-sim-container">
+          <!-- PVC pipe mock up -->
+          <div class="pvc-mock-pipe">
+            <div class="ring-mock" id="ring-visual-mock"></div>
+          </div>
+
+          <!-- Laminated Card to Flip -->
+          <div class="card-scene" onclick="flipCard()" aria-label="数字カード。タップしてめくります。">
+            <div class="card-3d" id="score-card-3d">
+              <div class="card-face card-front-face">
+                <span class="card-label">RED TEAM</span>
+                <span class="card-score">8</span>
+                <span class="card-label">赤組 得点</span>
+              </div>
+              <div class="card-face card-back-face">
+                <span class="card-label" style="color: var(--color-team-red);">RED TEAM</span>
+                <span class="card-score" style="color: var(--color-team-red);">9</span>
+                <span class="card-label" style="color: var(--color-text-muted);">フリップ後</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-hint" id="simulator-hint-text">カードをタップしてめくる</div>
+        </div>
+      </div>
+
+      <!-- Wind & Weight Stability Tool -->
+      <div class="card" id="card-stability-tool">
+        <h2 class="card-title"><span aria-hidden="true">⚖️</span> 風力・バケツ重量 安定度シミュレーター</h2>
+        <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-bottom: 12px;">
+          バケツに入れる重り（石・水・砂など）の重さと強風のバランスを設定し、得点板が安全に自立するか検証できます。
+        </p>
+
+        <div class="slider-container">
+          <div class="slider-header">
+            <span>🪣 重りの重量 (左右合計)</span>
+            <span id="weight-label" style="color: var(--color-pvc-blue);">20 kg (中身たっぷり)</span>
+          </div>
+          <input type="range" class="custom-range" id="weight-slider" min="0" max="40" value="20" oninput="calculateStability()" aria-label="重りの重量スライダー">
+
+          <div class="slider-header">
+            <span>🍃 想定する風速 (m/s)</span>
+            <span id="wind-label" style="color: var(--color-pvc-pink);">5 m/s (そよ風)</span>
+          </div>
+          <input type="range" class="custom-range" id="wind-slider" min="0" max="20" value="5" oninput="calculateStability()" aria-label="風速スライダー">
+
+          <div class="stability-rating">
+            <span class="rating-label">得点板の安定性評価</span>
+            <span class="rating-value perfect" id="stability-value">極めて安全 (Perfect)</span>
+          </div>
+          <p id="stability-advice" style="font-size: 0.75rem; color: var(--color-text-secondary); margin-top: 10px; line-height: 1.4;">
+            ※十分な重量があるため、風で倒れる心配はありません。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER LOGO -->
+    <div class="footer-logo">
+      PORTABLE UNDOKAI SCOREBOARD BY ANTIGRAVITY <span>♥</span>
+    </div>
+
+  </div>
+
+  <!-- ── APP LOGIC (JAVASCRIPT) ──────────────────────────────────────── -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    const pipesData = {
+      pipe1: [
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 0 },
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 1 },
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 2 },
+        { type: 'scrap', len: 12, label: '余白マージン', colorClass: 'scrap', index: 3 }
+      ],
+      pipe2: [
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 0 },
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 1 },
+        { type: 'orange', len: 36, label: '水平バー', colorClass: 'orange', index: 2 },
+        { type: 'scrap', len: 12, label: '余白マージン', colorClass: 'scrap', index: 3 }
+      ],
+      pipe3: [
+        { type: 'blue', len: 36, label: '下部垂直支柱', colorClass: 'blue', index: 0 },
+        { type: 'blue', len: 36, label: '下部垂直支柱', colorClass: 'blue', index: 1 },
+        { type: 'blue', len: 36, label: '下部垂直支柱', colorClass: 'blue', index: 2 },
+        { type: 'scrap', len: 12, label: '余白マージン', colorClass: 'scrap', index: 3 }
+      ],
+      pipe4: [
+        { type: 'red', len: 24, label: '上部垂直支柱', colorClass: 'red', index: 0 },
+        { type: 'red', len: 24, label: '上部垂直支柱', colorClass: 'red', index: 1 },
+        { type: 'yellow', len: 18, label: '土台の足', colorClass: 'yellow', index: 2 },
+        { type: 'yellow', len: 18, label: '土台の足', colorClass: 'yellow', index: 3 },
+        { type: 'yellow', len: 18, label: '土台の足', colorClass: 'yellow', index: 4 },
+        { type: 'yellow', len: 18, label: '土台の足 (※のこぎり刃分少し短くなります)', colorClass: 'yellow', index: 5 }
+      ]
+    };
+
+    // User checked state persistence (using object keys like `pipe1-0` for Pipe 1, segment index 0)
+    let checkedSegments = {};
+
+    let currentSelectedPipe = 'pipe1';
+
+    // --- TAB SWITCHER ---
+    function switchTab(evt, tabId) {
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+      
+      // Auto-load interactive pipe visual if entering cut-sheet tab
+      if (tabId === 'cut-sheet') {
+        renderPipeVisual(currentSelectedPipe);
+      }
+    }
+
+    // --- INTERACTIVE CUTTER LOGIC ---
+    function selectPipe(pipeKey) {
+      currentSelectedPipe = pipeKey;
+      
+      const tabs = document.querySelectorAll('.pipe-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+      });
+
+      const selectedButton = document.querySelector(`[onclick="selectPipe('${pipeKey}')"]`);
+      if (selectedButton) {
+        selectedButton.classList.add('active');
+        selectedButton.setAttribute('aria-selected', 'true');
+      }
+
+      renderPipeVisual(pipeKey);
+    }
+
+    function renderPipeVisual(pipeKey) {
+      const segments = pipesData[pipeKey];
+      const barDisplay = document.getElementById('pipe-visual-bar-display');
+      const instructionsDisplay = document.getElementById('cut-instructions-display');
+
+      barDisplay.innerHTML = '';
+      instructionsDisplay.innerHTML = '';
+
+      segments.forEach((segment) => {
+        const key = `${pipeKey}-${segment.index}`;
+        const isChecked = checkedSegments[key] || false;
+
+        // Render Pipe Visual Segment
+        const segmentEl = document.createElement('div');
+        segmentEl.className = `pvc-segment ${segment.colorClass} ${isChecked ? 'checked' : ''}`;
+        segmentEl.style.flexGrow = segment.len; // Flex size corresponds to pipe length!
+        segmentEl.setAttribute('role', 'button');
+        segmentEl.setAttribute('aria-label', `${segment.label} ${segment.len}インチ`);
+        segmentEl.innerHTML = isChecked ? '' : `<span style="transform: skewX(-5deg);">${segment.len}"</span>`;
+        segmentEl.onclick = () => toggleSegment(pipeKey, segment.index);
+        barDisplay.appendChild(segmentEl);
+
+        // Render List Instructions
+        const instructionItem = document.createElement('div');
+        instructionItem.className = `cut-instruction-item ${isChecked ? 'checked' : ''}`;
+        instructionItem.onclick = () => toggleSegment(pipeKey, segment.index);
+
+        const checkCircle = document.createElement('div');
+        checkCircle.className = 'checkbox-circle';
+        
+        const label = document.createElement('span');
+        label.className = `cut-label ${segment.colorClass}`;
+        label.innerText = `${segment.len}インチ`;
+
+        const desc = document.createElement('span');
+        desc.className = 'cut-desc';
+        desc.innerText = segment.type === 'scrap' ? '余白パイプ（予備）' : `${segment.label}を切り出す`;
+
+        instructionItem.appendChild(checkCircle);
+        instructionItem.appendChild(label);
+        instructionItem.appendChild(desc);
+        instructionsDisplay.appendChild(instructionItem);
+      });
+    }
+
+    function toggleSegment(pipeKey, segmentIndex) {
+      const key = `${pipeKey}-${segmentIndex}`;
+      checkedSegments[key] = !checkedSegments[key];
+      renderPipeVisual(pipeKey);
+    }
+
+    // --- STEP-BY-STEP assembly interaction ---
+    function activateStep(element) {
+      const steps = document.querySelectorAll('.step-node');
+      steps.forEach(step => step.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // --- FLIP SIMULATOR LOGIC ---
+    function flipCard() {
+      const card = document.getElementById('score-card-3d');
+      const hint = document.getElementById('simulator-hint-text');
+      
+      card.classList.toggle('is-flipped');
+      if (card.classList.contains('is-flipped')) {
+        hint.innerText = 'カードをタップして戻す';
+      } else {
+        hint.innerText = 'カードをタップしてめくる';
+      }
+    }
+
+    // --- STABILITY SIMULATOR LOGIC ---
+    function calculateStability() {
+      const weight = parseInt(document.getElementById('weight-slider').value);
+      const wind = parseInt(document.getElementById('wind-slider').value);
+      
+      document.getElementById('weight-label').innerText = `${weight} kg ${weight === 0 ? '(空バケツ)' : weight <= 10 ? '(水少し)' : weight <= 20 ? '(中身たっぷり)' : '(満タン・極重)'}`;
+      document.getElementById('wind-label').innerText = `${wind} m/s ${wind <= 2 ? '(ほぼ無風)' : wind <= 6 ? '(そよ風)' : wind <= 12 ? '(強風)' : '(暴風・倒壊警戒)'}`;
+
+      const stabilityValueEl = document.getElementById('stability-value');
+      const adviceEl = document.getElementById('stability-advice');
+
+      // Stability algorithm based on weight and wind
+      const ratio = weight / (wind + 1); // Avoid division by zero
+
+      stabilityValueEl.className = 'rating-value';
+
+      if (wind > 12 && weight < 15) {
+        stabilityValueEl.innerText = '極めて危険 (Danger)';
+        stabilityValueEl.classList.add('danger');
+        adviceEl.innerText = '🚨 強風に対して重りが軽すぎます！バケツに水や石を最大まで入れるか、一時的に得点板を畳んでください。';
+      } else if (ratio < 0.6) {
+        stabilityValueEl.innerText = '倒壊注意 (Warning)';
+        stabilityValueEl.classList.add('warning');
+        adviceEl.innerText = '⚠️ 風圧で傾く恐れがあります。バケツの重量を増やすか、風よけの設置をお勧めします。';
+      } else if (ratio < 1.5) {
+        stabilityValueEl.innerText = '十分安全 (Good)';
+        stabilityValueEl.classList.add('good');
+        adviceEl.innerText = '👍 風にしっかり耐えています。一般的な運動会グラウンドの環境なら問題ありません！';
+      } else {
+        stabilityValueEl.innerText = '極めて安全 (Perfect)';
+        stabilityValueEl.classList.add('perfect');
+        adviceEl.innerText = '✨ 完璧な安定度です！バケツの十分な重みが土台をがっちり押さえ、突風が吹いてもびくともしません。';
+      }
+    }
+
+    // --- INIT ---
+    window.onload = function() {
+      // Render initial tab state
+      renderPipeVisual('pipe1');
+      // Initialize stability calculation
+      calculateStability();
+    };
+  </script>
+</body>
+</html>
