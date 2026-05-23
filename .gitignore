@@ -1,11 +1,15 @@
-# Ignore heavy media assets
+# Ignore heavy media assets globally
 *.png
 *.pdf
 .DS_Store
 
-# Ignore directories containing images/PDF orders
+# Ignore specific directories containing heavy prints
 HomeDepot/
 For_Print_Aliexpress/
 1x/
 300ppi/
 tempmediaStorage/
+
+# Allow specific lighter assets for the shopping checklist
+!homedepot-kaimono/*.png
+!homedepot-kaimono/*.jpg
